@@ -1,7 +1,7 @@
 // Map 1
-function multifamilyHousingPermitted(data, geojson) {
+function multifamilyPercentZones(data, geojson) {
 
-  var map = L.map('multifamily-housing-permitted', {
+  var map = L.map('multifamily-percent-zones', {
     center: [41.50, -72.68],
     zoom: 9,
     zoomControl: true,
@@ -18,15 +18,14 @@ function multifamilyHousingPermitted(data, geojson) {
   }).addTo(map);
 
   var getColor = function(town) {
-    var val2color = {
-      'No': '#fc8d62',
-      'By special permit': '#ffffb3',
-      'Allowed by right': '#8dd3c7'
-    }
+    var val = parseInt(data[town]['Percentage of Total Number Zones Allowing Multifamily'])
 
-    return data[town] && val2color[data[town]['Multifamily Housing Permitted?']]
-      ? val2color[data[town]['Multifamily Housing Permitted?']]
-      : '#cccccc'
+    return val == 0 ? '#fc8d62'
+      : val <= 20 ? '#ffffcc'
+      : val <= 40 ? '#c2e699'
+      : val <= 60 ? '#78c679'
+      : val <= 80 ? '#31a354'
+      : '#006837'
   }
 
   var geojsonLayer = L.geoJSON(geojson, {
@@ -37,7 +36,7 @@ function multifamilyHousingPermitted(data, geojson) {
         .bindPopup(
           [
             '<b>' + town + '</b>',
-            'Multifamily Housing: ' + data[town]['Multifamily Housing Permitted?'],
+            '% of Zones Allowing Multifamily Housing: ' + data[town]['Percentage of Total Number Zones Allowing Multifamily'],
             data[town]['Notes (data reviewed May 2013)']
           ].join('<br>')
         )

@@ -13,7 +13,11 @@ $(document).ready(function() {
           zoningRegs[el.Municipality] = el
         })
 
-        multifamilyHousingPermitted(zoningRegs, geojson)
+        var map1 = multifamilyHousingPermitted(zoningRegs, geojson)
+        var map2 = multifamilyPercentZones(zoningRegs, geojson)
+
+        map1.sync(map2)
+        map2.sync(map1)
       }
     })
 

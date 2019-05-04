@@ -10,8 +10,11 @@
 
     <script src="js/vendor/jquery.min.js"></script>
     <script src="js/vendor/leaflet.min.js"></script>
+    <script src="js/vendor/leaflet.sync.js"></script>
     <script src="js/vendor/tabletop.min.js"></script>
+
     <script src="js/multifamily-housing-permitted.js"></script>
+    <script src="js/multifamily-percent-zones.js"></script>
     <script src="js/init.js"></script>
   </head>
 
@@ -23,7 +26,7 @@
       </h1>
 
       <p class="f4">
-        <a href="https://docs.google.com/presentation/d/1WYG2MKoygAWX3Uo4wGwb3kA3lq-6DEikhOJ8m1xu8XI/edit" target="_blank" class="link">
+        <a href="https://docs.google.com/presentation/d/1WYG2MKoygAWX3Uo4wGwb3kA3lq-6DEikhOJ8m1xu8XI/edit" target="_blank" class="link blue dim">
         Welcome to the Connecticut Zoning Initiative</a>, a website with
         data on residential land-use regulations for municipalities
         across the state. This page includes a scrollable “card view”
@@ -45,30 +48,42 @@
       <p>
         If you have any questions, email Melvin Kelley,
         Connecticut Fair Housing Center Staff Attorney at
-        <a href="mailto:mkelley@ctfairhousing.org?subject=Connecticut%20Zoning%20Initiative" class="link">mkelley@ctfairhousing.org</a>.
+        <a href="mailto:mkelley@ctfairhousing.org?subject=Connecticut%20Zoning%20Initiative" class="link blue dim">mkelley@ctfairhousing.org</a>.
       </p>
 
     </div>
 
     
-    <div class="center mw9 pa3 cf">
+    <div class="center mw9 pa3 cf bg-yellow bg-animate">
 
-      <div class="w-100 w-50-l pa3 fl orange bg-navy">
+      <div class="w-100 h-100 w-50-l pa3 fl bw2 ba">
         <h2 class="f2">Map 1: Multifamily Housing Permitted</h2>
 
-        <p>
+        <p class="h3">
           The map shows whether a town's zoning regulations allow multifamily housing
           of three or more units, and if so, whether the zoning regulations require a
           special permit or if they allow multifamily housing by right.
         </p>
 
-        <div class="h600 w-100 bg-silver" id="multifamily-housing-permitted"></div>
+        <div class="h600 w-100" id="multifamily-housing-permitted">
+          <div class="center w-25 h-25 rotate pa4">
+            <svg class="h-100 w-100" id="i-settings" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+              <path d="M13 2 L13 6 11 7 8 4 4 8 7 11 6 13 2 13 2 19 6 19 7 21 4 24 8 28 11 25 13 26 13 30 19 30 19 26 21 25 24 28 28 24 25 21 26 19 30 19 30 13 26 13 25 11 28 8 24 4 21 7 19 6 19 2 Z" />
+              <circle cx="16" cy="16" r="4" />
+            </svg>
+          </div>
+        </div>
 
       </div>
 
-      <div class="w-100 w-50-l pa3 fl bg-orange navy">
+      <div class="w-100 h-100 w-50-l pa3 fl bw2 bw2-l ba bt-0 bt-l bl-0-l">
         <h2 class="f2">Map 2: Percent of Zones Allowing Multifamily Housing</h2>
-        <p>This map shows percent of zones per town where multifamily housing is allowed.</p>
+        <p class="h3">This map shows percent of zones per town where multifamily housing is allowed.</p>
+
+        <div class="h600 w-100 center" id="multifamily-percent-zones">
+          <p class="dib v-mid">8</p>
+        </div>
+
       </div>
 
     </div>
