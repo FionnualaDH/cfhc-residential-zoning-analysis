@@ -29,25 +29,38 @@ function multifamilyHousingPermitted(data, geojson) {
       : '#cccccc'
   }
 
+  var info = L.control();
+
+  info.onAdd = function(map) {
+    this._div = L.DomUtil.create('div', 'bg-yellow black ph2 pv1 f6 ba bw1 b--black measure-narrow')
+    this.update()
+    return this._div
+  };
+
+  info.update = function(town) {
+    if (town && data[town]) {
+      this._div.innerHTML = [
+        '<b>' + town + '</b>',
+        data[town]['Multifamily Housing Permitted?'],
+        data[town]['Notes (data reviewed May 2013)']
+      ].join('<br>')
+    } else {
+      this._div.innerHTML = [
+        '<b>' + 'Hover over town' + '</b>',
+        'to view data'
+      ].join('<br>')
+    }
+  };
+
+  info.addTo(map);
+
   var geojsonLayer = L.geoJSON(geojson, {
     onEachFeature: function(feature, layer) {
       var town = feature.properties.Town
-      
+
       layer
-        .bindPopup(
-          [
-            '<b>' + town + '</b>',
-            'Multifamily Housing: ' + data[town]['Multifamily Housing Permitted?'],
-            data[town]['Notes (data reviewed May 2013)']
-          ].join('<br>')
-        )
         .on('mouseover', function(e) {
-          this.openPopup()
-          this.setStyle({'fillOpacity': 0.5})
-        })
-        .on('mouseout', function(e) {
-          this.closePopup()
-          this.setStyle({'fillOpacity': 0.95})
+          info.update(town)
         })
     },
     style: function(feature) {

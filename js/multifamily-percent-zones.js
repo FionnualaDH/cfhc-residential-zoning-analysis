@@ -17,6 +17,31 @@ function multifamilyPercentZones(data, geojson) {
     ext: 'png'
   }).addTo(map);
 
+  var info = L.control();
+
+  info.onAdd = function(map) {
+    this._div = L.DomUtil.create('div', 'bg-yellow black ph2 pv1 f6 ba bw1 b--black measure-narrow')
+    this.update()
+    return this._div
+  };
+
+  info.update = function(town) {
+    if (town && data[town]) {
+      this._div.innerHTML = [
+        '<b>' + town + '</b>',
+        data[town]['Percentage of Total Number Zones Allowing Multifamily'] + '%',
+        data[town]['Notes (data reviewed May 2013)']
+      ].join('<br>')
+    } else {
+      this._div.innerHTML = [
+        '<b>' + 'Hover over town' + '</b>',
+        'to view data'
+      ].join('<br>')
+    }
+  };
+
+  info.addTo(map);
+
   var getColor = function(town) {
     var val = parseInt(data[town]['Percentage of Total Number Zones Allowing Multifamily'])
 
@@ -33,6 +58,12 @@ function multifamilyPercentZones(data, geojson) {
       var town = feature.properties.Town
       
       layer
+        .on('mouseover', function(e) {
+          info.update(town)
+        })
+
+          /*
+      layer
         .bindPopup(
           [
             '<b>' + town + '</b>',
@@ -47,7 +78,7 @@ function multifamilyPercentZones(data, geojson) {
         .on('mouseout', function(e) {
           this.closePopup()
           this.setStyle({'fillOpacity': 0.95})
-        })
+        }) */
     },
     style: function(feature) {
       return {

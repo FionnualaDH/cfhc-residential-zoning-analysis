@@ -12,9 +12,13 @@
     <script src="js/vendor/leaflet.min.js"></script>
     <script src="js/vendor/leaflet.sync.js"></script>
     <script src="js/vendor/tabletop.min.js"></script>
+    <script src="js/vendor/geostats.min.js"></script>
 
     <script src="js/multifamily-housing-permitted.js"></script>
     <script src="js/multifamily-percent-zones.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/definitions.js"></script>
+    <script src="js/lot-size.js"></script>
     <script src="js/init.js"></script>
   </head>
 
@@ -54,20 +58,20 @@
     </div>
 
     
-    <div class="center mw9 pa3 cf bg-yellow bg-animate">
+    <div class="center mw9 pa3 cf bg-yellow">
 
       <div class="w-100 h-100 w-50-l pa3 fl bw2 ba">
-        <h2 class="f2">Map 1: Multifamily Housing Permitted</h2>
+        <h2 class="f2 v-top">Map 1: Multifamily Housing Permitted</h2>
 
-        <p class="h3">
+        <p class="h3-l">
           The map shows whether a town's zoning regulations allow multifamily housing
           of three or more units, and if so, whether the zoning regulations require a
           special permit or if they allow multifamily housing by right.
         </p>
 
         <div class="h600 w-100" id="multifamily-housing-permitted">
-          <div class="center w-25 h-25 rotate pa4">
-            <svg class="h-100 w-100" id="i-settings" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+          <div class="pv5 tc">
+            <svg class="dib mv5 rotate" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="80" height="80" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
               <path d="M13 2 L13 6 11 7 8 4 4 8 7 11 6 13 2 13 2 19 6 19 7 21 4 24 8 28 11 25 13 26 13 30 19 30 19 26 21 25 24 28 28 24 25 21 26 19 30 19 30 13 26 13 25 11 28 8 24 4 21 7 19 6 19 2 Z" />
               <circle cx="16" cy="16" r="4" />
             </svg>
@@ -78,14 +82,47 @@
 
       <div class="w-100 h-100 w-50-l pa3 fl bw2 bw2-l ba bt-0 bt-l bl-0-l">
         <h2 class="f2">Map 2: Percent of Zones Allowing Multifamily Housing</h2>
-        <p class="h3">This map shows percent of zones per town where multifamily housing is allowed.</p>
 
-        <div class="h600 w-100 center" id="multifamily-percent-zones">
-          <p class="dib v-mid">8</p>
+        <p class="h3-l">
+          This map shows percent of zones per town where multifamily housing is allowed.
+        </p>
+
+        <div class="h600 w-100 mt2" id="multifamily-percent-zones">
+          <div class="pv5 tc">
+              <svg class="dib mv5 rotate" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="80" height="80" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                <path d="M13 2 L13 6 11 7 8 4 4 8 7 11 6 13 2 13 2 19 6 19 7 21 4 24 8 28 11 25 13 26 13 30 19 30 19 26 21 25 24 28 28 24 25 21 26 19 30 19 30 13 26 13 25 11 28 8 24 4 21 7 19 6 19 2 Z" />
+                <circle cx="16" cy="16" r="4" />
+              </svg>
+            </div>
         </div>
 
       </div>
 
+    </div>
+
+    <div class="mw7 pa3 center">
+      <h2 class="f2">Lot Sizes and Density for Multifamily Homes</h2>
+
+      <p class="f5">
+        Some municipalities limit minimum lot size for a multifamily building.
+        When the minimum is set too high, it may prevent developers from
+        constructing some multifamily building: Why build a 4-unit on 20 acres?
+      </p>
+
+      <p class="f5">
+        On the other hand, municipalities restrict the maximum density of units per acre.
+        By setting maximum density too low (compare Hartford's 300 units per acre to Colebrook's 0.5 unit per acre),
+        some municipalities make multifamily units effectivey impossible to construct.
+      </p>
+
+      <p class="f5">
+        The visualization below shows minimum multifamily housing lot size for each town,
+        and the maximum number of <b>units per acre</b> that can be constructed on such lot.
+      </p>
+
+      <div class="shadow-5">
+        <div id="lotSizes" class="vh-50 overflow-y-auto ph4"></div>
+      </div>
     </div>
 
 
@@ -101,6 +138,17 @@
 
     </div>
 
+    <section class="mw7 pa3 center">
+      <h2 class="f2">Compare Towns With Maps</h2>
+
+      <div id="map1" class="w-100 vh-100"></div>
+    </section>
+
+    <section class="mw7 pa3 center bg-washed-yellow">
+      <h2 class="f2">Definitions</h2>
+      <dl class="f6"></dl>
+    </section>
+    
   </body>
 
 </html>
