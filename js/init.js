@@ -17,12 +17,19 @@ $(document).ready(function() {
         var map2 = multifamilyPercentZones(zoningRegs, geojson)
 
         map1.sync(map2)
-        map2.sync(map1)
+        map2.sync(map1) */
 
         addDefinitions(data['Definitions&Sources'].elements)
-        generateLotSizeTable(zoningRegs) */
+        generateLotSizeTable(zoningRegs)
 
         var map1 = populateMap('map1', zoningRegs, geojson)
+        var map2 = populateMap('map2', zoningRegs, geojson)
+
+        map1.sync(map2)
+        map2.sync(map1)
+
+        //$('#map1 input[name="leaflet-base-layers"]').attr('name', 'leaflet-base-layers7')
+
       }
     })
 

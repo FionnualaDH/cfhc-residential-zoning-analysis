@@ -5,18 +5,19 @@ var generateVisual = function(lotsize, density) {
     </svg>'
 
   var homes = homeIcon.trim().repeat(parseInt(density))
-  var homesText = density == '' ? 'no data on max density' : ' max ' + density + ' units per acre'
+  var homesText = density == '' ? 'no data on max density' : ' max <b>' + density + '</b> units per acre'
   if (density === '') {
-    homes = '<span class="light-gray">' + homeIcon + '</span> '
+    homes = '<span class="light-gray">' + homeIcon + '</span>'
   } else if (parseFloat(density) - parseInt(density) > 0.05) {
-    homes = homes + '<span class="black-50">' + homeIcon.trim() + '</span> '
+    homes = homes + '<span class="black-50">' + homeIcon.trim() + '</span>'
   }
+  homes += ' '
 
 
   var lotsizeFull = parseInt(lotsize)
   var lotsizePart = parseFloat(lotsize) - parseInt(lotsize)
-  var acresText = lotsize === '' ? 'no data on min lot size' : 'min ' + lotsize + ' acres'
-  acresText = '<div class="fl mt1">' + acresText + '</div>'
+  var acresText = lotsize === '' ? 'no data on min lot size' : 'min <b>' + lotsize + '</b> acres'
+  acresText = '<div class="fl mt1 f6 black-80">' + acresText + '</div>'
   
   var lotsizePartWidth = ''
   if (lotsizePart > 0.05) {
@@ -33,7 +34,7 @@ var generateVisual = function(lotsize, density) {
   return [
     '<div class="pv1 cf"><div class="w-100">',
     homes,
-    homesText,
+    '<span class="black-80 f6 dib v-mid pb2">' + homesText + '</span>',
     '</div> <div class="w-100">',
     acres,
     acresText,

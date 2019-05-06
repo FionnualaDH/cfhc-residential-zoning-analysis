@@ -14,10 +14,15 @@
   cursor: pointer;
 }
 
-.leaflet-control-layers-expanded {
-  background-color: #ffd700;
+.leaflet-control-layers-expanded, .leaflet-control-zoom {
+  background-color: white;
   border-radius: 0;
   border: 0 solid rgba(0,0,0,0) !important;
+  outline: 1px solid;
+}
+
+.leaflet-control-layers-selector:checked + span {
+  font-weight: bold;
 }
 
 .rotate {
