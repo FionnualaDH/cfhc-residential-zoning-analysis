@@ -127,20 +127,164 @@ function populateMap(mapid, data, geojson) {
     }
   })
 
+  // Geojson Layer: Median Home Value (ACS2017)
+  var medianHomeValueKey = 'Median Home Value (ACS2017)'
+  var medianHomeValueValues = Object.values(data)
+    .map(function(a) {return parseFloat(a[medianHomeValueKey]) || 0})
+  var medianHomeValueJenks = new geostats(medianHomeValueValues).getClassJenks(5)
+
+  var medianHomeValueColor = function(town) {
+    var val = parseFloat(data[town][medianHomeValueKey])
+    for (var i in medianHomeValueJenks) {
+      if (i == 0) continue
+      if (val <= medianHomeValueJenks[i]) {
+        return jenksColors[i]
+      }
+    }
+    return '#cccccc'
+  }
+  var medianHomeValue = L.geoJSON(geojson, {
+    onEachFeature: function(feature, layer) {
+      var town = feature.properties.Town
+      layer
+        .bindTooltip([
+          '<b>' + town + '</b>',
+          data[town][medianHomeValueKey] ? '$' + parseInt(data[town][medianHomeValueKey]).toLocaleString() : 'No data'
+        ].join('<br>'))
+    },
+    style: function(feature) {
+      return {
+        color: 'black',
+        weight: 1,
+        fillOpacity: 0.95,
+        fillColor: medianHomeValueColor(feature.properties.Town)
+      }
+    }
+  })
+
+
+  // Geojson Layer: Median Rent (ACS2017)
+  var medianRentKey = 'Median Rent (ACS2017)'
+  var medianRentValues = Object.values(data)
+    .map(function(a) {return parseFloat(a[medianRentKey]) || 0})
+  var medianRentJenks = new geostats(medianRentValues).getClassJenks(5)
+
+  var medianRentColor = function(town) {
+    var val = parseFloat(data[town][medianRentKey])
+    for (var i in medianRentJenks) {
+      if (i == 0) continue
+      if (val <= medianRentJenks[i]) {
+        return jenksColors[i]
+      }
+    }
+    return '#cccccc'
+  }
+  var medianRent = L.geoJSON(geojson, {
+    onEachFeature: function(feature, layer) {
+      var town = feature.properties.Town
+      layer
+        .bindTooltip([
+          '<b>' + town + '</b>',
+          data[town][medianRentKey] ? '$' + parseInt(data[town][medianRentKey]).toLocaleString() : 'No data'
+        ].join('<br>'))
+    },
+    style: function(feature) {
+      return {
+        color: 'black',
+        weight: 1,
+        fillOpacity: 0.95,
+        fillColor: medianRentColor(feature.properties.Town)
+      }
+    }
+  })
+
+
+  // Geojson Layer: Median Household Income (ACS2017)
+  var medianHouseholdIncomeKey = 'Median Household Income (ACS2017)'
+  var medianHouseholdIncomeValues = Object.values(data)
+    .map(function(a) {return parseFloat(a[medianHouseholdIncomeKey]) || 0})
+  var medianHouseholdIncomeJenks = new geostats(medianHouseholdIncomeValues).getClassJenks(5)
+
+  var medianHouseholdIncomeColor = function(town) {
+    var val = parseFloat(data[town][medianHouseholdIncomeKey])
+    for (var i in medianHouseholdIncomeJenks) {
+      if (i == 0) continue
+      if (val <= medianHouseholdIncomeJenks[i]) {
+        return jenksColors[i]
+      }
+    }
+    return '#cccccc'
+  }
+  var medianHouseholdIncome = L.geoJSON(geojson, {
+    onEachFeature: function(feature, layer) {
+      var town = feature.properties.Town
+      layer
+        .bindTooltip([
+          '<b>' + town + '</b>',
+          data[town][medianHouseholdIncomeKey] ? '$' + parseInt(data[town][medianHouseholdIncomeKey]).toLocaleString() : 'No data'
+        ].join('<br>'))
+    },
+    style: function(feature) {
+      return {
+        color: 'black',
+        weight: 1,
+        fillOpacity: 0.95,
+        fillColor: medianHouseholdIncomeColor(feature.properties.Town)
+      }
+    }
+  })
+
+  // Geojson Layer: % Nonwhite Population (ACS2017)
+  var nonwhiteKey = 'Nonwhite Population (ACS2017)'
+  var nonwhiteValues = Object.values(data)
+    .map(function(a) {return parseFloat(a[nonwhiteKey]) || 0})
+  var nonwhiteJenks = new geostats(nonwhiteValues).getClassJenks(5)
+
+  var nonwhiteColor = function(town) {
+    var val = parseFloat(data[town][nonwhiteKey])
+    for (var i in nonwhiteJenks) {
+      if (i == 0) continue
+      if (val <= nonwhiteJenks[i]) {
+        return jenksColors[i]
+      }
+    }
+    return '#cccccc'
+  }
+  var nonwhite = L.geoJSON(geojson, {
+    onEachFeature: function(feature, layer) {
+      var town = feature.properties.Town
+      layer
+        .bindTooltip([
+          '<b>' + town + '</b>',
+          data[town][nonwhiteKey] ? parseInt(data[town][nonwhiteKey]).toLocaleString() + '%' : 'No data'
+        ].join('<br>'))
+    },
+    style: function(feature) {
+      return {
+        color: 'black',
+        weight: 1,
+        fillOpacity: 0.95,
+        fillColor: nonwhiteColor(feature.properties.Town)
+      }
+    }
+  })
+
   // Add Layers control 
   var layersControl = L.control.layers(
     {
       'Multifamily Housing Permitted': mfHousingPermitted,
       '% Zones Allowing Multifamily Housing': mfHousingZones,
       '% Affordable Housing': affordableHousing,
+      'Median Household Income, $': medianHouseholdIncome,
+      'Median Home Value, $': medianHomeValue,
+      'Median Rent, $': medianRent,
+      'Nonwhite Population, %': nonwhite,
     }, {}, {
       collapsed: false,
       position: 'topleft',
     }).addTo(map)
 
     $('#map1 input[name="leaflet-base-layers"]').attr('name', 'leaflet-base-layers-map1')
-  
-  console.log( $('input[name="leaflet-base-layers"') )
 
   // Center map
   var centerMap = function() {
@@ -159,6 +303,7 @@ function populateMap(mapid, data, geojson) {
     var breakpoints
     var colors = jenksColors
     var prefixes = true
+    var prefixFirst = ''
 
     switch (e.name) {
       case 'Multifamily Housing Permitted':
@@ -168,9 +313,31 @@ function populateMap(mapid, data, geojson) {
         break
       case '% Zones Allowing Multifamily Housing':
         breakpoints = mfHousingZonesJenks
+        prefixFirst = '='
         break
       case '% Affordable Housing':
         breakpoints = affordableHousingJenks
+        prefixFirst = '='
+        break
+      case 'Median Home Value, $':
+        breakpoints = medianHomeValueJenks.slice(1)
+        colors = jenksColors.slice(1)
+        prefixFirst = '&leq;'
+        break
+      case 'Median Rent, $':
+        breakpoints = medianRentJenks.slice(1)
+        colors = jenksColors.slice(1)
+        prefixFirst = '&leq;'
+        break
+      case 'Median Household Income, $':
+        breakpoints = medianHouseholdIncomeJenks.slice(1)
+        colors = jenksColors.slice(1)
+        prefixFirst = '&leq;'
+        break
+      case 'Nonwhite Population, %':
+        breakpoints = nonwhiteJenks.slice(1)
+        colors = jenksColors.slice(1)
+        prefixFirst = '&leq;'
         break
     }
     
@@ -178,8 +345,8 @@ function populateMap(mapid, data, geojson) {
       return '<div class="dib w1" style="background-color: '
         + colors[i]
         + '">&nbsp;</div> '
-        + (prefixes ? (i == 0 ? '=' : '&leq;') : '')
-        + el
+        + (prefixes ? (i == 0 ? prefixFirst : '&leq;') : '')
+        + el.toLocaleString()
     })
 
     $('.legend.' + mapid).html(classes.join('<br>'))
