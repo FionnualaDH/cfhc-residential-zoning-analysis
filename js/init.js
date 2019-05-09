@@ -28,6 +28,8 @@ $(document).ready(function() {
         map1.sync(map2)
         map2.sync(map1)
 
+        populateDropdown(zoningRegs)
+
         //$('#map1 input[name="leaflet-base-layers"]').attr('name', 'leaflet-base-layers7')
 
       }

@@ -11,6 +11,5 @@ var addDefinitions = function(data) {
       ].join('')
     )
   })
-
-  console.log(data)
+  
 }

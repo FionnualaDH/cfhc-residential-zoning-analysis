@@ -14,10 +14,11 @@
     <script src="js/vendor/tabletop.min.js"></script>
     <script src="js/vendor/geostats.min.js"></script>
 
-    <script src="js/multifamily-housing-permitted.js"></script>
-    <script src="js/multifamily-percent-zones.js"></script>
+    <!---<script src="js/multifamily-housing-permitted.js"></script>
+    <script src="js/multifamily-percent-zones.js"></script> -->
     <script src="js/map.js"></script>
     <script src="js/definitions.js"></script>
+    <script src="js/dropdown.js"></script>
     <script src="js/lot-size.js"></script>
     <script src="js/init.js"></script>
   </head>
@@ -163,6 +164,25 @@
         <div id="lotSizes" class="vh-75 overflow-y-auto ph4"></div>
       </div>
 
+    </section>
+
+    <section class="f5 cf bg-black-10">
+      <div class="mw7 pa3 center">
+        <h2 class="f2">Explore Detailed Zoning Data</h2>
+
+        <div class="w-100">
+          <select class="bg-white f4 ba bw1 b--black ph2 pv1"></select>
+        </div>
+
+        <div class="w-100 w-50-ns fl mt3 pr3 pb5">
+          <h4 class="f4">Zoning Regulations</h4>
+          <div id="dropdownZoningReg"></div>
+        </div>
+        <div class="w-100 w-50-ns fl mt3 pb3">
+          <h4 class="f4">Demographic Data</h4>
+          <div id="dropdownDemographic"></div>
+        </div>
+      </div>
     </section>
 
     <!--
