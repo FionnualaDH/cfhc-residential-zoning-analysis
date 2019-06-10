@@ -1,42 +1,41 @@
-// Map with all layers
 function populateMap(mapid, data, geojson) {
 
+  // Initialize the map
   var map = L.map(mapid, {
     center: [41.50, -72.68],
     zoom: 9,
     zoomControl: false,
     scrollWheelZoom: false,
     attributionControl: false,
-  })
+  });
 
-  L.control.zoom({position: 'topright'}).addTo(map)
+  // Add Zoom control
+  L.control.zoom({position: 'topright'}).addTo(map);
 
-  // Use Stamen's Toner Background as basemap
-  L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-background/{z}/{x}/{y}{r}.{ext}', {
-    attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  // Use CartoDB without labels as basemap
+  var CartoDB_PositronNoLabels = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
     subdomains: 'abcd',
-    minZoom: 0,
-    maxZoom: 20,
-    ext: 'png'
-  }).addTo(map)
-
+    maxZoom: 19
+  }).addTo(map);
 
   // Geojson Layer: Multifamily Housing Permitted
-  var mfHousingPermittedKey = 'Multifamily Housing Permitted?'
-  var mfHousingPermittedValues = ['No', 'By special permit', 'Allowed by right', 'n/a']
-  var mfHousingPermittedColors = ['#fc8d62', '#ffffb3', '#8dd3c7', '#cccccc']
+  var mfHousingPermittedKey = 'Multifamily Housing Permitted?';
+  var mfHousingPermittedValues = ['No', 'By special permit', 'Allowed by right', 'n/a'];
+  var mfHousingPermittedColors = ['#fc8d62', '#ffffb3', '#8dd3c7', '#cccccc'];
 
+  // Return color for `Multifamily Housing Permitted` layer
   var mfHousingPermittedColor = function(town) {
-    var val = data[town][mfHousingPermittedKey]
-
+    var val = data[town][mfHousingPermittedKey];
     for (var i in mfHousingPermittedValues) {
       if (mfHousingPermittedValues[i] == val) {
-        return mfHousingPermittedColors[i]
+        return mfHousingPermittedColors[i];
       }
     }
-
-    return '#cccccc'
+    return '#cccccc';
   }
+
+  // Initialize `Multifamily Housing Permitted` layer 
   var mfHousingPermitted = L.geoJSON(geojson, {
     onEachFeature: function(feature, layer) {
       var town = feature.properties.Town
@@ -54,8 +53,9 @@ function populateMap(mapid, data, geojson) {
         fillColor: mfHousingPermittedColor(feature.properties.Town)
       }
     }
-  })
+  });
 
+  // Jenks colors are the same for all layers but `Multifamily Housing Permitted`
   const jenksColors = ['#fc8d62', '#ffffcc', '#c2e699', '#78c679', '#31a354', '#006837']
 
   // Geojson Layer: % Zones Allowing Multifamily Housing
@@ -73,6 +73,7 @@ function populateMap(mapid, data, geojson) {
     }
     return '#cccccc'
   }
+
   var mfHousingZones = L.geoJSON(geojson, {
     onEachFeature: function(feature, layer) {
       var town = feature.properties.Town

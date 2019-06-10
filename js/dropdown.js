@@ -1,11 +1,11 @@
 var populateDropdown = function(data) {
 
   for (var town in data) {
-    $('select').append('<option name="' + town + '">' + town + '</option>')
+    $('#explore').append('<option name="' + town + '">' + town + '</option>');
   }
 
-  $('select').on('change', function() {
-    var town = $(this).val()
+  $('#explore').on('change', function() {
+    var town = $(this).val();
 
     $('#dropdownZoningReg').html([
       // Zones (# and %) that allow different types of housing
@@ -39,7 +39,7 @@ var populateDropdown = function(data) {
       '<br>- elderly: ' + data[town]['Maximum Density (units per acre): Elderly Housing'],
       // Multifamiy Housing allowed?
       '<br><br><b>Multifamily housing permitted?</b> ' + data[town]['Multifamily Housing Permitted?'],
-    ].join(''))
+    ].join(''));
 
     $('#dropdownDemographic').html([
       '<b>Median Household Income:</b> $'
@@ -50,10 +50,10 @@ var populateDropdown = function(data) {
         + parseInt(data[town]['Median Rent (ACS2017)']).toLocaleString(),
       '<b>Nonwhite Population:</b> '
         + data[town]['Nonwhite Population (ACS2017)'] + '%',
-    ].join('<br>'))
+    ].join('<br>'));
 
   })
 
-  $('select').val('Hartford').trigger('change')
+  $('select').val('Hartford').trigger('change');
 
 }
