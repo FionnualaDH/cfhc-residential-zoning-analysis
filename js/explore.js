@@ -1,4 +1,4 @@
-var populateDropdown = function(data) {
+var populateExplore = function(data) {
 
   for (var town in data) {
     $('#explore').append('<option name="' + town + '">' + town + '</option>');
@@ -54,6 +54,6 @@ var populateDropdown = function(data) {
 
   })
 
-  $('select').val('Hartford').trigger('change');
+  $('#explore').val('Hartford').trigger('change');
 
 }

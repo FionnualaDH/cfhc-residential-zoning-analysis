@@ -8,33 +8,26 @@ $(document).ready(function() {
       callback: function(data, tabletop) {
 
         // Create a data object where key = Municipality
-        var zoningRegs = {}
+        var zoningRegs = {};
         data['Zoning Regulations'].elements.map(function(el) {
-          zoningRegs[el.Municipality] = el
-        })
+          zoningRegs[el.Municipality] = el;
+        });
 
-        /*var map1 = multifamilyHousingPermitted(zoningRegs, geojson)
-        var map2 = multifamilyPercentZones(zoningRegs, geojson)
+        addDefinitions(data['Definitions&Sources'].elements);
+        //generateLotSizeTable(zoningRegs);
+        populateLotDensity(zoningRegs);
 
-        map1.sync(map2)
-        map2.sync(map1) */
+        var map1 = populateMap('map1', zoningRegs, geojson);
+        var map2 = populateMap('map2', zoningRegs, geojson);
 
-        addDefinitions(data['Definitions&Sources'].elements)
-        generateLotSizeTable(zoningRegs)
+        map1.sync(map2);
+        map2.sync(map1);
 
-        var map1 = populateMap('map1', zoningRegs, geojson)
-        var map2 = populateMap('map2', zoningRegs, geojson)
-
-        map1.sync(map2)
-        map2.sync(map1)
-
-        populateDropdown(zoningRegs)
-
-        //$('#map1 input[name="leaflet-base-layers"]').attr('name', 'leaflet-base-layers7')
-
+        populateExplore(zoningRegs);
       }
-    })
 
-  })
+    });
 
-})
+  });
+
+});

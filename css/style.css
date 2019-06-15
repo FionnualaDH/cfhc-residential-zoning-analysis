@@ -38,3 +38,11 @@
 #lotSizes {
   -webkit-mask-image: linear-gradient(to bottom, rgba(255,255,255,1), 90%, rgba(255,255,255,0));
 }
+
+.bg-green {
+  background-color: #007356;
+}
+
+.bg-blue {
+  background-color: #0069a4;
+}

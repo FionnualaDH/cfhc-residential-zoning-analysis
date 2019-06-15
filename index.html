@@ -19,8 +19,9 @@
     <script src="js/multifamily-percent-zones.js"></script> -->
     <script src="js/map.js"></script>
     <script src="js/definitions.js"></script>
-    <script src="js/dropdown.js"></script>
-    <script src="js/lot-size.js"></script>
+    <script src="js/explore.js"></script>
+    <!--<script src="js/lot-size.js"></script>-->
+    <script src="js/lot-density.js"></script>
     <script src="js/init.js"></script>
   </head>
 
@@ -161,8 +162,40 @@
         and the maximum number of <b>units per acre</b> that can be constructed on such lot.
       </p>
 
+      <!--
       <div class="shadow-5 mv4">
         <div id="lotSizes" class="vh-75 overflow-y-auto ph4"></div>
+      </div>-->
+
+      <div class="w-100 mv2">
+
+        <div class="cf">
+          <div class="w-50 fl">
+            <select id="lot-density-selector-1" class="bg-white f4 ba bw1 b--black ph2 pv1"></select>
+          </div>
+          <div class="w-50 fl">
+            <select id="lot-density-selector-2" class="bg-white f4 ba bw1 b--black ph2 pv1"></select>
+          </div>
+        </div>
+
+        <div class="w-100 mt2">
+          <h3 class="f3 mb1">Maximum number of units per acre</h3>
+        </div>
+
+        <div class="cf">
+          <div id="density-1" class="w-50 fl"></div>
+          <div id="density-2" class="w-50 fl"></div>
+        </div>
+
+        <div class="w-100">
+          <h3 class="f3 mb1">Minimum number of acres</h3>
+        </div>
+
+        <div class="cf">
+          <div id="lot-1" class="w-50 fl"></div>
+          <div id="lot-2" class="w-50 fl"></div>
+        </div>
+
       </div>
 
     </section>
