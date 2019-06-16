@@ -24,6 +24,16 @@ $(document).ready(function() {
         map2.sync(map1);
 
         populateExplore(zoningRegs);
+
+        $('#toggleDefinitions').click(function() {
+          if ( $('dl').hasClass('dn') ) {
+            $('#toggleDefinitions').text('Hide definitions');
+            $('dl').removeClass('dn').addClass('db');
+          } else {
+            $('#toggleDefinitions').text('Show definitions');
+            $('dl').removeClass('db').addClass('dn');
+          }
+        });
       }
 
     });

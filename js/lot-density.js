@@ -8,18 +8,41 @@ let updateLotDensityVisuals = function(data, town, lotID, densityID) {
 
   // Generate Lot Size icons
   let lotHTML = '';
-  for (var i = 0; i < minLotSize; i++) {
-    lotHTML += '<span class="dib h1 w1 bg-green mt1 mr1"></span>';
+
+  if (minLotSize || minLotSize === 0) {
+    for (var i = 0; i <= minLotSize - 1; i++) {
+      lotHTML += '<span class="dib h1 w1 bg-green mt1 mr1"></span>';
+    }
+    let lotSizeDecimal = parseFloat(minLotSize) - parseInt(minLotSize);
+    if (lotSizeDecimal > 0 || minLotSize === 0) {
+      let lotSizeDecimalWidth = parseInt(16 * lotSizeDecimal);
+      lotHTML += '<span class="dib h1 w1 bg-black-10 mt1 mr1">\
+        <span class="dib h1 bg-green" style="width: ' + lotSizeDecimalWidth + 'px"></span></span>';
+    }
+    lotHTML += '<br>(Minimum ' + minLotSize + ' acres)';
+  } else {
+    lotHTML += 'No data';
   }
-  lotHTML += '<br>(Minimum ' + minLotSize + ' acres)';
+  
   $(lotID).html(lotHTML);
 
   // Generate Maximum Density using home icons
   let densityHTML = '';
-  for (var i = 0; i < maxDensity; i++) {
-    densityHTML += '<span class="blue">' + homeIcon + '</span>';
+
+  if (maxDensity || maxDensity === 0) {
+    for (var i = 0; i <= maxDensity - 1; i++) {
+      densityHTML += '<span class="blue">' + homeIcon + '</span>';
+    }
+
+    let maxDensityDecimal = parseFloat(maxDensity) - parseInt(maxDensity);
+    if (maxDensityDecimal > 0) {
+      densityHTML += '<span class="blue" style="opacity: ' + maxDensityDecimal + '">' + homeIcon + '</span>';
+    }
+    densityHTML += '<br>(Maximum ' + maxDensity + ' units per acre)';
+  } else {
+    densityHTML += 'No data';
   }
-  densityHTML += '<br>(Maximum ' + maxDensity + ' units per acre)';
+
   $(densityID).html(densityHTML);
 }
 

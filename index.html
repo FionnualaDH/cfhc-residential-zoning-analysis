@@ -28,7 +28,16 @@
   <body class="helvetica f5 lh-title">
 
     <!-- Header -->
-    <section class="mw7 pa3 center">
+
+    <nav class="ph3 pv2 tc center bg-white-80 bb bw1 b--black fixed w-100" style="z-index: 9999">
+      <span class="dn di-l">Connecticut Zoning Initiative:</span>
+      <a href="#about-section" class="link underline black mh2 dim">About</a>
+      <a href="#map-section" class="link underline black mh2 dim">Map</a>
+      <a href="#compare-section" class="link underline black mh2 dim">Compare</a>
+      <a href="#explore-section" class="link underline black mh2 dim">Explore</a>
+    </nav>
+
+    <section class="mw7 pa3 center" id="about-section">
       <h1 class="f1 bb bw4">
         Connecticut Zoning Initiative
       </h1>
@@ -62,18 +71,18 @@
     </section>
 
     <!-- Maps -->
-    <section class="w-100 center cf">
+    <section class="w-100 center cf bg-light-gray" id="map-section">
 
       <div class="mw7 pa3 center">
-        <h2 class="f2">Interactive Maps</h2>
+        <h2 class="f2">Interactive Map<span class="dn di-l">s</span></h2>
         <p class="f4">
-          Use the maps below to expore whether Connecticut towns permit multifamily housing,
+          Use the map<span class="dn di-l">s</span> below to expore whether Connecticut towns permit multifamily housing,
           what percentage of zones allow building multifamily housing, and various
           housing and demographic variables by town.
         </p>
       </div>
 
-        <div class="w-100 w-50-l fl cf pa3 bg-light-gray">
+        <div class="w-100 w-50-l fl cf pa3">
           <div id="map1" class="w-100 vh-100">
             <div class="pv5 tc">
               <svg class="dib mv5 rotate" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="80" height="80" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
@@ -142,7 +151,7 @@
     -->
 
     <!-- Lot Sizes & Density -->
-    <section class="mw7 f5 pa3 center">
+    <section class="mw7 f5 pa3 center pb5" id="compare-section">
       <h2 class="f2">Regulations of Lot Sizes and Density for Multifamily Homes</h2>
 
       <p>
@@ -167,6 +176,8 @@
         <div id="lotSizes" class="vh-75 overflow-y-auto ph4"></div>
       </div>-->
 
+      <h2 class="f2">Compare towns</h2>
+
       <div class="w-100 mv2">
 
         <div class="cf">
@@ -179,28 +190,28 @@
         </div>
 
         <div class="w-100 mt2">
-          <h3 class="f3 mb1">Maximum number of units per acre</h3>
+          <h3 class="f3 mb2">Maximum number of units per acre for a multifamily development</h3>
         </div>
 
         <div class="cf">
-          <div id="density-1" class="w-100 w-50-ns fl pr2"></div>
-          <div id="density-2" class="w-50 fl dn db-ns pl2"></div>
+          <div id="density-1" class="w-100 w-50-ns fl pr3"></div>
+          <div id="density-2" class="w-50 fl dn db-ns pl3"></div>
         </div>
 
         <div class="w-100">
-          <h3 class="f3 mb1">Minimum number of acres</h3>
+          <h3 class="f3 mb2">Minimum number of acres for a multifamily development</h3>
         </div>
 
         <div class="cf">
-          <div id="lot-1" class="w-100 w-50-ns fl pr2"></div>
-          <div id="lot-2" class="w-50 fl dn db-ns pl2"></div>
+          <div id="lot-1" class="w-100 w-50-ns fl pr3"></div>
+          <div id="lot-2" class="w-50 fl dn db-ns pl3"></div>
         </div>
 
       </div>
 
     </section>
 
-    <section class="f5 cf bg-black-10">
+    <section class="f5 cf bg-light-gray pb5" id="explore-section">
       <div class="mw7 pa3 center">
         <h2 class="f2">Explore Detailed Zoning Data</h2>
 
@@ -208,7 +219,7 @@
           <select id="explore" class="bg-white f4 ba bw1 b--black ph2 pv1"></select>
         </div>
 
-        <div class="w-100 w-50-ns fl mt3 pr3 pb5">
+        <div class="w-100 w-50-ns fl mt3 pr3 pb3">
           <h4 class="f4">Zoning Regulations</h4>
           <div id="dropdownZoningReg"></div>
         </div>
@@ -233,10 +244,15 @@
     </div>-->
 
     <!-- Definitions -->
-    <section class="w-100 bg-light-gray">
+    <section class="w-100">
       <div class="mw7 pa3 center">
-        <h2 class="f2">Definitions</h2>
-        <dl class="f6"></dl>
+        <h2 class="f2">
+          <span id="toggleDefinitions" class="link black underline dim" style="cursor: pointer">Show definitions</span>
+          <svg class="v-mid" id="i-book" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+            <path d="M16 7 C16 7 9 1 2 6 L2 28 C9 23 16 28 16 28 16 28 23 23 30 28 L30 6 C23 1 16 7 16 7 Z M16 7 L16 28" />
+          </svg>
+        </h2>
+        <dl class="f6 dn"></dl>
       </div>
     </section>
     
