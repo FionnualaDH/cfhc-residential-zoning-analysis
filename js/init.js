@@ -24,6 +24,7 @@ $(document).ready(function() {
         map2.sync(map1);
 
         populateExplore(zoningRegs);
+        populateScatterplot(zoningRegs);
 
         $('#toggleDefinitions').click(function() {
           if ( $('dl').hasClass('dn') ) {

@@ -46,3 +46,7 @@
 .bg-blue {
   background-color: #0069a4;
 }
+
+#scatterplot {
+  height: 100px;
+}

@@ -5,15 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Connecticut Zoning Initiative</title>
 
-    <link rel="stylesheet" href="css/vendor/tachyons.css"/>
-    <link rel="stylesheet" href="css/vendor/leaflet.css"/>
-    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/vendor/tachyons.css">
+    <link rel="stylesheet" href="css/vendor/leaflet.css">
+    <link rel="stylesheet" href="css/vendor/chart.css">
+    <link rel="stylesheet" href="css/style.css">
 
     <script src="js/vendor/jquery.min.js"></script>
     <script src="js/vendor/leaflet.min.js"></script>
     <script src="js/vendor/leaflet.sync.js"></script>
     <script src="js/vendor/tabletop.min.js"></script>
     <script src="js/vendor/geostats.min.js"></script>
+    <script src="js/vendor/chart.bundle.min.js"></script>
 
     <!---<script src="js/multifamily-housing-permitted.js"></script>
     <script src="js/multifamily-percent-zones.js"></script> -->
@@ -22,6 +24,7 @@
     <script src="js/explore.js"></script>
     <!--<script src="js/lot-size.js"></script>-->
     <script src="js/lot-density.js"></script>
+    <script src="js/scatterplot.js"></script>
     <script src="js/init.js"></script>
   </head>
 
@@ -33,6 +36,7 @@
       <span class="dn di-l">Connecticut Zoning Initiative:</span>
       <a href="#about-section" class="link underline black mh2 dim">About</a>
       <a href="#map-section" class="link underline black mh2 dim">Map</a>
+      <a href="#scatterplot-section" class="link underline black mh2 dim">Scatterplot</a>
       <a href="#compare-section" class="link underline black mh2 dim">Compare</a>
       <a href="#explore-section" class="link underline black mh2 dim">Explore</a>
     </nav>
@@ -105,6 +109,23 @@
         </div>
       </section>
 
+      <!-- Scatter -->
+      <section class="w-100 pa3 pb5" id="scatterplot-section">
+        <div class="mw7 pa3 center">
+          <h2 class="f2">
+            Show values on scatterplot
+          </h2>
+
+          <div class="cf">
+            <select id="scatterplot-dropdown-1" class="bg-white f6 ba bw1 b--black ph2 pv1 mr2"></select>
+            <span class="f5"> versus </span>
+            <select id="scatterplot-dropdown-2" class="bg-white f6 ba bw1 b--black ph2 pv1 ml2"></select>
+          </div>
+
+          <canvas id="scatterplot" class="mt5 mb2"></canvas>
+        </div>
+      </section>
+
     <!--
     <div class="center mw9 pa3 cf bg-yellow">
 
@@ -151,7 +172,7 @@
     -->
 
     <!-- Lot Sizes & Density -->
-    <section class="mw7 f5 pa3 center pb5" id="compare-section">
+    <section class="mw7 f5 pa3 center pb5 bg-lightest-blue" id="compare-section">
       <h2 class="f2">Regulations of Lot Sizes and Density for Multifamily Homes</h2>
 
       <p>
@@ -176,7 +197,7 @@
         <div id="lotSizes" class="vh-75 overflow-y-auto ph4"></div>
       </div>-->
 
-      <h2 class="f2">Compare towns</h2>
+      <h3 class="f3">Compare towns</h3>
 
       <div class="w-100 mv2">
 
@@ -190,7 +211,7 @@
         </div>
 
         <div class="w-100 mt2">
-          <h3 class="f3 mb2">Maximum number of units per acre for a multifamily development</h3>
+          <h4 class="f4 mb2">Maximum number of units per acre for a multifamily development</h4>
         </div>
 
         <div class="cf">
@@ -199,7 +220,7 @@
         </div>
 
         <div class="w-100">
-          <h3 class="f3 mb2">Minimum number of acres for a multifamily development</h3>
+          <h4 class="f4 mb2">Minimum number of acres for a multifamily development</h4>
         </div>
 
         <div class="cf">
@@ -211,7 +232,7 @@
 
     </section>
 
-    <section class="f5 cf bg-light-gray pb5" id="explore-section">
+    <section class="f5 cf pb5" id="explore-section">
       <div class="mw7 pa3 center">
         <h2 class="f2">Explore Detailed Zoning Data</h2>
 
@@ -244,7 +265,7 @@
     </div>-->
 
     <!-- Definitions -->
-    <section class="w-100">
+    <section class="w-100 bg-light-gray">
       <div class="mw7 pa3 center">
         <h2 class="f2">
           <span id="toggleDefinitions" class="link black underline dim" style="cursor: pointer">Show definitions</span>
