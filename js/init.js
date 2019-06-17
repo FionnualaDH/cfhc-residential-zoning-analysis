@@ -35,6 +35,9 @@ $(document).ready(function() {
             $('dl').removeClass('db').addClass('dn');
           }
         });
+
+        var headroom  = new Headroom(document.querySelector('nav'));
+        headroom.init(); 
       }
 
     });
