@@ -2,45 +2,51 @@ $(document).ready(function() {
 
   $.getJSON('data/ct.geojson', function(geojson) {
 
-    Tabletop.init({
-      key: 'https://docs.google.com/spreadsheets/d/1k34JgjzB44APwU4iDwtb0Rv2T8goYRbsrkBll5K--38/edit?usp=sharing',
-      simpleSheet: false,
-      callback: function(data, tabletop) {
+    var parse = function(res) {
+      return Papa.parse(Papa.unparse(res[0].values), {header: true} ).data;
+    }
+  
+    var apiUrl = 'https://sheets.googleapis.com/v4/spreadsheets/'
+    var spreadsheetId = '1k34JgjzB44APwU4iDwtb0Rv2T8goYRbsrkBll5K--38'
+    var k = 'AIzaSyCRir9fvPmi-ys_IbtHz7DCGxeXP9Kg0G8'
 
-        // Create a data object where key = Municipality
-        var zoningRegs = {};
-        data['Zoning Regulations'].elements.map(function(el) {
-          zoningRegs[el.Municipality] = el;
-        });
+    $.when(
+      $.getJSON(apiUrl + spreadsheetId + '/values/Zoning%20Regulations?key=' + k),
+      $.getJSON(apiUrl + spreadsheetId + '/values/Definitions&Sources?key=' + k),
+    ).then(function(regulations, definitions) {
 
-        addDefinitions(data['Definitions&Sources'].elements);
-        //generateLotSizeTable(zoningRegs);
-        populateLotDensity(zoningRegs);
+      // Create a data object where key = Municipality
+      var zoningRegs = {};
+      parse(regulations).map(function(el) {
+        zoningRegs[el.Municipality] = el;
+      });
 
-        var map1 = populateMap('map1', zoningRegs, geojson);
-        var map2 = populateMap('map2', zoningRegs, geojson);
+      addDefinitions(parse(definitions));
+      populateLotDensity(zoningRegs);
 
-        map1.sync(map2);
-        map2.sync(map1);
+      var map1 = populateMap('map1', zoningRegs, geojson);
+      var map2 = populateMap('map2', zoningRegs, geojson);
 
-        populateExplore(zoningRegs);
-        populateScatterplot(zoningRegs);
+      map1.sync(map2);
+      map2.sync(map1);
 
-        $('#toggleDefinitions').click(function() {
-          if ( $('dl').hasClass('dn') ) {
-            $('#toggleDefinitions').text('Hide definitions');
-            $('dl').removeClass('dn').addClass('db');
-          } else {
-            $('#toggleDefinitions').text('Show definitions');
-            $('dl').removeClass('db').addClass('dn');
-          }
-        });
+      populateExplore(zoningRegs);
+      populateScatterplot(zoningRegs);
 
-        var headroom  = new Headroom(document.querySelector('nav'));
-        headroom.init(); 
-      }
+      $('#toggleDefinitions').click(function() {
+        if ( $('dl').hasClass('dn') ) {
+          $('#toggleDefinitions').text('Hide definitions');
+          $('dl').removeClass('dn').addClass('db');
+        } else {
+          $('#toggleDefinitions').text('Show definitions');
+          $('dl').removeClass('db').addClass('dn');
+        }
+      });
 
-    });
+      var headroom  = new Headroom(document.querySelector('nav'));
+      headroom.init(); 
+
+    })
 
   });
 
